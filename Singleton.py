@@ -26,3 +26,13 @@ class DBConnection:
         cur.execute(sql, params)
         self.conn.commit()
         return cur.fetchall()
+
+
+db1 = DBConnection("app.db")
+db2 = DBConnection("app.db")
+
+print(db1 is db2)  # True
+
+db1.execute("CREATE TABLE IF NOT EXISTS users(id INTEGER, name TEXT)")
+db2.execute("INSERT INTO users VALUES(?, ?)", (1, "Yassine"))
+print(db1.execute("SELECT * FROM users"))
